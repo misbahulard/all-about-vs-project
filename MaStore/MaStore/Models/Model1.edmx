@@ -1,0 +1,205 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Model1.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="Model1StoreContainer">
+    <EntitySet Name="Categories" EntityType="Model1.Store.Categories" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Apps" EntityType="Model1.Store.Apps" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Developers" EntityType="Model1.Store.Developers" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="CategoryApp" Association="Model1.Store.CategoryApp">
+      <End Role="Category" EntitySet="Categories" />
+      <End Role="App" EntitySet="Apps" />
+    </AssociationSet>
+    <AssociationSet Name="DeveloperApp" Association="Model1.Store.DeveloperApp">
+      <End Role="Developer" EntitySet="Developers" />
+      <End Role="App" EntitySet="Apps" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Categories">
+    <Key>
+      <PropertyRef Name="CategoryId" />
+    </Key>
+    <Property Name="CategoryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Apps">
+    <Key>
+      <PropertyRef Name="AppId" />
+    </Key>
+    <Property Name="AppId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Price" Type="decimal" Nullable="false" />
+    <Property Name="DeveloperId" Type="int" Nullable="false" />
+    <Property Name="CategoryId" Type="int" Nullable="false" />
+    <Property Name="Category_CategoryId" Type="int" Nullable="false" />
+    <Property Name="Developer_DeveloperId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Developers">
+    <Key>
+      <PropertyRef Name="DeveloperId" />
+    </Key>
+    <Property Name="DeveloperId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <Association Name="CategoryApp">
+    <End Role="Category" Type="Model1.Store.Categories" Multiplicity="1" />
+    <End Role="App" Type="Model1.Store.Apps" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Category">
+        <PropertyRef Name="CategoryId" />
+      </Principal>
+      <Dependent Role="App">
+        <PropertyRef Name="Category_CategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="DeveloperApp">
+    <End Role="Developer" Type="Model1.Store.Developers" Multiplicity="1" />
+    <End Role="App" Type="Model1.Store.Apps" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Developer">
+        <PropertyRef Name="DeveloperId" />
+      </Principal>
+      <Dependent Role="App">
+        <PropertyRef Name="Developer_DeveloperId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Model1" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="Model1Container" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Categories" EntityType="Model1.Category" />
+          <EntitySet Name="Apps" EntityType="Model1.App" />
+          <EntitySet Name="Developers" EntityType="Model1.Developer" />
+          <AssociationSet Name="CategoryApp" Association="Model1.CategoryApp">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="App" EntitySet="Apps" />
+          </AssociationSet>
+          <AssociationSet Name="DeveloperApp" Association="Model1.DeveloperApp">
+            <End Role="Developer" EntitySet="Developers" />
+            <End Role="App" EntitySet="Apps" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="CategoryId" />
+          </Key>
+          <Property Name="CategoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="false" />
+          <NavigationProperty Name="Apps" Relationship="Model1.CategoryApp" FromRole="Category" ToRole="App" />
+        </EntityType>
+        <EntityType Name="App">
+          <Key>
+            <PropertyRef Name="AppId" />
+          </Key>
+          <Property Name="AppId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="false" />
+          <Property Name="Price" Type="Decimal" Nullable="false" />
+          <Property Name="DeveloperId" Type="Int32" Nullable="false" />
+          <Property Name="CategoryId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Category" Relationship="Model1.CategoryApp" FromRole="App" ToRole="Category" />
+          <NavigationProperty Name="Developer" Relationship="Model1.DeveloperApp" FromRole="App" ToRole="Developer" />
+        </EntityType>
+        <EntityType Name="Developer">
+          <Key>
+            <PropertyRef Name="DeveloperId" />
+          </Key>
+          <Property Name="DeveloperId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="false" />
+          <NavigationProperty Name="Apps" Relationship="Model1.DeveloperApp" FromRole="Developer" ToRole="App" />
+        </EntityType>
+        <Association Name="CategoryApp">
+          <End Type="Model1.Category" Role="Category" Multiplicity="1" />
+          <End Type="Model1.App" Role="App" Multiplicity="*" />
+        </Association>
+        <Association Name="DeveloperApp">
+          <End Type="Model1.Developer" Role="Developer" Multiplicity="1" />
+          <End Type="Model1.App" Role="App" Multiplicity="*" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Model1StoreContainer" CdmEntityContainer="Model1Container">
+    <EntitySetMapping Name="Categories">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Category)">
+        <MappingFragment StoreEntitySet="Categories">
+          <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Apps">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.App)">
+        <MappingFragment StoreEntitySet="Apps">
+          <ScalarProperty Name="AppId" ColumnName="AppId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="DeveloperId" ColumnName="DeveloperId" />
+          <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Developers">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Developer)">
+        <MappingFragment StoreEntitySet="Developers">
+          <ScalarProperty Name="DeveloperId" ColumnName="DeveloperId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="CategoryApp" TypeName="Model1.CategoryApp" StoreEntitySet="Apps">
+      <EndProperty Name="Category">
+        <ScalarProperty Name="CategoryId" ColumnName="Category_CategoryId" />
+      </EndProperty>
+      <EndProperty Name="App">
+        <ScalarProperty Name="AppId" ColumnName="AppId" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="DeveloperApp" TypeName="Model1.DeveloperApp" StoreEntitySet="Apps">
+      <EndProperty Name="Developer">
+        <ScalarProperty Name="DeveloperId" ColumnName="Developer_DeveloperId" />
+      </EndProperty>
+      <EndProperty Name="App">
+        <ScalarProperty Name="AppId" ColumnName="AppId" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,258 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="MyModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="MyModelStoreContainer">
+    <EntitySet Name="Events" EntityType="MyModel.Store.Events" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Organizers" EntityType="MyModel.Store.Organizers" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Workers" EntityType="MyModel.Store.Workers" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Tasks" EntityType="MyModel.Store.Tasks" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="EventOrganizer" EntityType="MyModel.Store.EventOrganizer" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="WorkerTask" EntityType="MyModel.Store.WorkerTask" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK_EventOrganizer_Event" Association="MyModel.Store.FK_EventOrganizer_Event">
+      <End Role="Event" EntitySet="Events" />
+      <End Role="EventOrganizer" EntitySet="EventOrganizer" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EventOrganizer_Organizer" Association="MyModel.Store.FK_EventOrganizer_Organizer">
+      <End Role="Organizer" EntitySet="Organizers" />
+      <End Role="EventOrganizer" EntitySet="EventOrganizer" />
+    </AssociationSet>
+    <AssociationSet Name="FK_WorkerTask_Worker" Association="MyModel.Store.FK_WorkerTask_Worker">
+      <End Role="Worker" EntitySet="Workers" />
+      <End Role="WorkerTask" EntitySet="WorkerTask" />
+    </AssociationSet>
+    <AssociationSet Name="FK_WorkerTask_Task" Association="MyModel.Store.FK_WorkerTask_Task">
+      <End Role="Task" EntitySet="Tasks" />
+      <End Role="WorkerTask" EntitySet="WorkerTask" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Events">
+    <Key>
+      <PropertyRef Name="EventId" />
+    </Key>
+    <Property Name="EventId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Organizers">
+    <Key>
+      <PropertyRef Name="OrganizerId" />
+    </Key>
+    <Property Name="OrganizerId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Workers">
+    <Key>
+      <PropertyRef Name="WorkerId" />
+    </Key>
+    <Property Name="WorkerId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Tasks">
+    <Key>
+      <PropertyRef Name="TaskId" />
+    </Key>
+    <Property Name="TaskId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="EventOrganizer">
+    <Key>
+      <PropertyRef Name="Events_EventId" />
+      <PropertyRef Name="Organizers_OrganizerId" />
+    </Key>
+    <Property Name="Events_EventId" Type="int" Nullable="false" />
+    <Property Name="Organizers_OrganizerId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="WorkerTask">
+    <Key>
+      <PropertyRef Name="Worker_WorkerId" />
+      <PropertyRef Name="Tasks_TaskId" />
+    </Key>
+    <Property Name="Worker_WorkerId" Type="int" Nullable="false" />
+    <Property Name="Tasks_TaskId" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_EventOrganizer_Event">
+    <End Role="Event" Type="MyModel.Store.Events" Multiplicity="1" />
+    <End Role="EventOrganizer" Type="MyModel.Store.EventOrganizer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Event">
+        <PropertyRef Name="EventId" />
+      </Principal>
+      <Dependent Role="EventOrganizer">
+        <PropertyRef Name="Events_EventId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EventOrganizer_Organizer">
+    <End Role="EventOrganizer" Type="MyModel.Store.EventOrganizer" Multiplicity="*" />
+    <End Role="Organizer" Type="MyModel.Store.Organizers" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Organizer">
+        <PropertyRef Name="OrganizerId" />
+      </Principal>
+      <Dependent Role="EventOrganizer">
+        <PropertyRef Name="Organizers_OrganizerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_WorkerTask_Worker">
+    <End Role="Worker" Type="MyModel.Store.Workers" Multiplicity="1" />
+    <End Role="WorkerTask" Type="MyModel.Store.WorkerTask" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Worker">
+        <PropertyRef Name="WorkerId" />
+      </Principal>
+      <Dependent Role="WorkerTask">
+        <PropertyRef Name="Worker_WorkerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_WorkerTask_Task">
+    <End Role="WorkerTask" Type="MyModel.Store.WorkerTask" Multiplicity="*" />
+    <End Role="Task" Type="MyModel.Store.Tasks" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Task">
+        <PropertyRef Name="TaskId" />
+      </Principal>
+      <Dependent Role="WorkerTask">
+        <PropertyRef Name="Tasks_TaskId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="MyModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="MyModelContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Events" EntityType="MyModel.Event" />
+          <EntitySet Name="Organizers" EntityType="MyModel.Organizer" />
+          <AssociationSet Name="EventOrganizer" Association="MyModel.EventOrganizer">
+            <End Role="Event" EntitySet="Events" />
+            <End Role="Organizer" EntitySet="Organizers" />
+          </AssociationSet>
+          <EntitySet Name="Workers" EntityType="MyModel.Worker" />
+          <EntitySet Name="Tasks" EntityType="MyModel.Task" />
+          <AssociationSet Name="WorkerTask" Association="MyModel.WorkerTask">
+            <End Role="Worker" EntitySet="Workers" />
+            <End Role="Task" EntitySet="Tasks" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="Event">
+          <Key>
+            <PropertyRef Name="EventId" />
+          </Key>
+          <Property Name="EventId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <NavigationProperty Name="Organizers" Relationship="MyModel.EventOrganizer" FromRole="Event" ToRole="Organizer" />
+        </EntityType>
+        <EntityType Name="Organizer">
+          <Key>
+            <PropertyRef Name="OrganizerId" />
+          </Key>
+          <Property Name="OrganizerId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <NavigationProperty Name="Events" Relationship="MyModel.EventOrganizer" FromRole="Organizer" ToRole="Event" />
+        </EntityType>
+        <Association Name="EventOrganizer">
+          <End Type="MyModel.Event" Role="Event" Multiplicity="*" />
+          <End Type="MyModel.Organizer" Role="Organizer" Multiplicity="*" />
+        </Association>
+        <EntityType Name="Worker">
+          <Key>
+            <PropertyRef Name="WorkerId" />
+          </Key>
+          <Property Name="WorkerId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <NavigationProperty Name="Tasks" Relationship="MyModel.WorkerTask" FromRole="Worker" ToRole="Task" />
+        </EntityType>
+        <EntityType Name="Task">
+          <Key>
+            <PropertyRef Name="TaskId" />
+          </Key>
+          <Property Name="TaskId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" Nullable="false" />
+          <NavigationProperty Name="Worker" Relationship="MyModel.WorkerTask" FromRole="Task" ToRole="Worker" />
+        </EntityType>
+        <Association Name="WorkerTask">
+          <End Type="MyModel.Worker" Role="Worker" Multiplicity="*" />
+          <End Type="MyModel.Task" Role="Task" Multiplicity="*" />
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="MyModelStoreContainer" CdmEntityContainer="MyModelContainer">
+    <EntitySetMapping Name="Events">
+      <EntityTypeMapping TypeName="IsTypeOf(MyModel.Event)">
+        <MappingFragment StoreEntitySet="Events">
+          <ScalarProperty Name="EventId" ColumnName="EventId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Organizers">
+      <EntityTypeMapping TypeName="IsTypeOf(MyModel.Organizer)">
+        <MappingFragment StoreEntitySet="Organizers">
+          <ScalarProperty Name="OrganizerId" ColumnName="OrganizerId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Workers">
+      <EntityTypeMapping TypeName="IsTypeOf(MyModel.Worker)">
+        <MappingFragment StoreEntitySet="Workers">
+          <ScalarProperty Name="WorkerId" ColumnName="WorkerId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tasks">
+      <EntityTypeMapping TypeName="IsTypeOf(MyModel.Task)">
+        <MappingFragment StoreEntitySet="Tasks">
+          <ScalarProperty Name="TaskId" ColumnName="TaskId" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="EventOrganizer" TypeName="MyModel.EventOrganizer" StoreEntitySet="EventOrganizer">
+      <EndProperty Name="Event">
+        <ScalarProperty Name="EventId" ColumnName="Events_EventId" />
+      </EndProperty>
+      <EndProperty Name="Organizer">
+        <ScalarProperty Name="OrganizerId" ColumnName="Organizers_OrganizerId" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="WorkerTask" TypeName="MyModel.WorkerTask" StoreEntitySet="WorkerTask">
+      <EndProperty Name="Worker">
+        <ScalarProperty Name="WorkerId" ColumnName="Worker_WorkerId" />
+      </EndProperty>
+      <EndProperty Name="Task">
+        <ScalarProperty Name="TaskId" ColumnName="Tasks_TaskId" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

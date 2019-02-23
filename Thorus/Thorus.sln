@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.12
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Thorus", "Thorus\Thorus.vcxproj", "{FBE27015-1C16-41F6-ACF8-A57E43E54618}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FBE27015-1C16-41F6-ACF8-A57E43E54618}.Debug|x64.ActiveCfg = Debug|x64
+		{FBE27015-1C16-41F6-ACF8-A57E43E54618}.Debug|x64.Build.0 = Debug|x64
+		{FBE27015-1C16-41F6-ACF8-A57E43E54618}.Debug|x86.ActiveCfg = Debug|Win32
+		{FBE27015-1C16-41F6-ACF8-A57E43E54618}.Debug|x86.Build.0 = Debug|Win32
+		{FBE27015-1C16-41F6-ACF8-A57E43E54618}.Release|x64.ActiveCfg = Release|x64
+		{FBE27015-1C16-41F6-ACF8-A57E43E54618}.Release|x64.Build.0 = Release|x64
+		{FBE27015-1C16-41F6-ACF8-A57E43E54618}.Release|x86.ActiveCfg = Release|Win32
+		{FBE27015-1C16-41F6-ACF8-A57E43E54618}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {10A2D29F-5C10-41A0-BEB9-7B979D465CEF}
+	EndGlobalSection
+EndGlobal
